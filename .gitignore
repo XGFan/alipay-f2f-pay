@@ -1,0 +1,9 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Java template
+# Created by .ignore support plugin (hsz.mobi)
+.idea
+target
+src/test
+*.iml
+*.class
+out
