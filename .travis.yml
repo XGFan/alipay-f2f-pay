@@ -1,0 +1,2 @@
+language: java
+script: mvn package -DskipTests=true -Dmaven.javadoc.skip=false -B -V
