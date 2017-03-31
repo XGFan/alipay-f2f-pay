@@ -13,7 +13,7 @@ import java.util.*
 
 
 /**
- * Created by root on 2017/3/29.
+ * Created by guofan on 2017/3/29.
  */
 class AlipayF2fPay(val appId: String = SandBox.APPID,
                    val privateKey: String = SandBox.PRIVATEKEY,
@@ -99,15 +99,6 @@ class AlipayF2fPay(val appId: String = SandBox.APPID,
 
     companion object {
         const val ProductApiGateway: String = "https://openapi.alipay.com/gateway.do"
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            val f2fPay = AlipayF2fPay()
-            f2fPay.execute(PreCreate("id001", "100", "测试"))
-//            f2fPay.createQrCode("12345678", "88.88", "Iphone6 16G")
-//            f2fPay.execute(Query("id001", null))
-//            f2fPay.execute(Refund("mcsa002_139024424412886175039745116474005648749", "2017032821001004390226554245", "0.1", "a"))
-        }
     }
 
 }

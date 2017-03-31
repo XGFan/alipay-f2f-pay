@@ -4,7 +4,7 @@ import com.xulog.alipay.bean.AlipayBizContent
 import com.xulog.alipay.bean.AlipayMethod
 
 /**
- * Created by root on 2017/3/30.
+ * Created by guofan on 2017/3/30.
  */
 class Refund(val out_trade_no: String? = null,
              val trade_no: String? = null,
