@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
  * Created by guofan on 2017/3/30.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-class PrecreateResponse : CommonResponse() {
+class PreCreateResponse : CommonResponse() {
     var out_trade_no: String? = null
     var qr_code: String? = null
 }

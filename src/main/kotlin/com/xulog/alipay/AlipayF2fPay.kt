@@ -1,13 +1,15 @@
 package com.xulog.alipay
 
-import com.xulog.alipay.bean.AlipayBizContent
+import com.fasterxml.jackson.core.type.TypeReference
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import com.xulog.alipay.Util.signWithRSA2
 import com.xulog.alipay.bean.SignType
-import com.xulog.alipay.bean.request.PreCreate
+import com.xulog.alipay.bean.request.AlipayBizContent
+import com.xulog.alipay.bean.response.AlipayResponse
+import com.xulog.alipay.bean.response.CommonResponse
 import net.dongliu.requests.Requests
-import java.security.KeyFactory
-import java.security.PrivateKey
-import java.security.Signature
-import java.security.spec.PKCS8EncodedKeySpec
+import java.nio.charset.Charset
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -20,18 +22,20 @@ class AlipayF2fPay(val appId: String = SandBox.APPID,
                    val alipayPublicKey: String = SandBox.ALIPAYPUBLICKEY,
                    val apiGateway: String = SandBox.APIGATEWAY) {
 
-    var signType: SignType = SignType.RSA2
+    val signType: SignType = SignType.RSA2
 
     var format: String = "json"
 
     var charset: String = "UTF-8"
 
+    var notify_url: String? = null
 
-    inner class Request(val biz_content: AlipayBizContent) {
+
+    inner class Request<T : CommonResponse>(val biz_content: AlipayBizContent<T>) {
         /*common start*/
         var app_id: String = appId //支付宝分配给开发者的应用ID
 
-        var notify_url: String? = null
+        var notify_url: String? = this@AlipayF2fPay.notify_url
 
         val method = biz_content.method
 
@@ -74,28 +78,21 @@ class AlipayF2fPay(val appId: String = SandBox.APPID,
 
     }
 
-    fun execute(biz_content: AlipayBizContent): String {
+    fun <T : CommonResponse> execute(biz_content: AlipayBizContent<T>): AlipayResponse<T> {
         val request = Request(biz_content)
-        val sign = signWithRSA2(request.toSortQuery())
+        val sign = signWithRSA2(request.toSortQuery(), charset(charset), privateKey.toByteArray())
         val req = Requests.post(apiGateway).forms(request.toFormMap() + mapOf("sign" to sign))
-        val res = req.send()
-        return res.readToText(charset("UTF-8"))
+        val res = req.send().readToText(charset(charset))
+        return ObjectMapper().registerKotlinModule().readValue(res, object : TypeReference<AlipayResponse<T>>() {})
     }
 
-    private fun getPrivateKeyFromPKCS8(algorithm: String, ins: ByteArray): PrivateKey {
-        val keyFactory = KeyFactory.getInstance(algorithm)
-        val decode = Base64.getDecoder().decode(ins)
-        return keyFactory.generatePrivate(PKCS8EncodedKeySpec(decode))
+
+    fun verifyCallbackWithRSA2(map: Map<String, String>): Boolean {
+        val sortQuery = map.filterKeys { it != "sign" && it != "sign_type" }.map { "${it.key}=${it.value}" }.sortedBy { it }.joinToString("&")
+        val cs = charset(charset)
+        return Util.verifyWithRSA2(sortQuery, cs, alipayPublicKey.toByteArray(cs), map["sign"]!!)
     }
 
-    private fun signWithRSA2(content: String): String {
-        val priKey = getPrivateKeyFromPKCS8("RSA", privateKey.toByteArray())
-        val signature = Signature.getInstance("SHA256WithRSA")
-        signature.initSign(priKey)
-        signature.update(content.toByteArray(charset(charset)))
-        val signed = signature.sign()
-        return Base64.getEncoder().encode(signed).toString(charset(charset))
-    }
 
     companion object {
         const val ProductApiGateway: String = "https://openapi.alipay.com/gateway.do"

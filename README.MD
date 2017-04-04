@@ -1,30 +1,41 @@
 ## 支付宝当面付API
 
+添加依赖
+```xml
+<dependency>
+    <groupId>com.xulog.lib</groupId>
+    <artifactId>alipay-f2f-pay</artifactId>
+    <version>0.0.2</version>
+</dependency>
+```
+可能需要添加repository
+```xml
+<repository>
+    <id>jcenter</id>
+    <url>https://jcenter.bintray.com/</url>
+</repository
+```
+
+
+
 简单使用
 
 ```java
 AlipayF2fPay alipayF2fPay = new AlipayF2fPay();//沙盒环境
 //AlipayF2fPay alipayF2fPay = new AlipayF2fPay(appId,privateKey,alipayPublicKey,apiGateway);//正式环境
-String res = alipayF2fPay.execute(new PreCreate("NO00001", "0.5", "五毛打赏"));
-//自行将json转成map或者bean
-```
-返回值如下
-```json
-{"alipay_trade_precreate_response":{"code":"10000","msg":"Success","out_trade_no":"NO00001","qr_code":"https:\/\/qr.alipay.com\/bax08572oh2dfggyk00k0044"},"sign":"hYFIPqc6IPXC6hQsU5VeYdNL/hCZ8ArOZ9w3mYMDsxpLsT5ENg3YHNBtLJVkQ+E/9PI5XyHCg/82ku0ABiNeRCdrwyD34TBYik7MEiJcBHxVj1BYOM1OLnyABgeGh1yiw3soZOJrz2T0Ae/fEf4WwBhQPbpTwgJVkhXBQBnbrpTyJmVPLEpCE2H8fnojcRJftTort4CH9R9IWG2vJXUig+MZiWGJfAtFWNMNY9aumv/uVm96zy849CHrXDP0anULQiVtyeskB72l6s1u2TfQqgOXmyUOTeli4cMW0jUO0qczRyyjmuw+LYcJ67feqDpVoKPeOOJtZgH9/MIldBhBmw=="}
-```
 
+AlipayResponse<PreCreateResponse> res = alipayF2fPay.execute(new PreCreate("NO00029", "29", "29"));//创建二维码
+AlipayResponse<RefundResponse> res2 = alipayF2fPay.execute(new Refund("NO00002", "0.5"));//退款
+AlipayResponse<TradeQueryResponse> res3 = alipayF2fPay.execute(new TradeQuery("NO00002"));//查询订单情况
 
-支持方法
-
-```java
-alipayF2fPay.execute(new PreCreate("NO00001", "0.5", "五毛打赏")); //创建二维码
-alipayF2fPay.execute(new Refund("NO00001","0.5"));//退款
-alipayF2fPay.execute(new TradeQuery("NO00001"));//查询订单情况
+alipayF2fPay.verifyCallbackWithRSA2(map);//验证回调签名
 ```
 
 
 
 TODO
 
-- [ ] 接口回调签名验证
-- [ ] 响应序列化
+- [x] 接口回调签名验证
+- [x] 响应序列化
+- [ ] 支持SHA1
+- [ ] 支持GBK

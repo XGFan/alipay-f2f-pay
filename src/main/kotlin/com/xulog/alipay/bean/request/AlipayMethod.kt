@@ -1,4 +1,4 @@
-package com.xulog.alipay.bean
+package com.xulog.alipay.bean.request
 
 enum class AlipayMethod(val str: String) {
     TRADE_QUERY("alipay.trade.query"),

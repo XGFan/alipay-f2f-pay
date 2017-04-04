@@ -17,7 +17,7 @@ class AlipayResponse<T : CommonResponse>() {
         val objectMapper = ObjectMapper().registerKotlinModule()
         val writeValueAsString = objectMapper.writeValueAsString(value)
         bizContent = when (name) {
-            "alipay_trade_precreate_response" -> objectMapper.readValue(writeValueAsString, PrecreateResponse::class.java) as T
+            "alipay_trade_precreate_response" -> objectMapper.readValue(writeValueAsString, PreCreateResponse::class.java) as T
             "alipay_trade_query_response" -> objectMapper.readValue(writeValueAsString, TradeQueryResponse::class.java) as T
             "alipay_trade_refund_response" -> objectMapper.readValue(writeValueAsString, RefundResponse::class.java) as T
             else -> {

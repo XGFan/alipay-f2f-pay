@@ -1,6 +1,8 @@
-package com.xulog.alipay.bean
+package com.xulog.alipay.bean.request
 
-abstract class AlipayBizContent(val method: AlipayMethod) {
+import com.xulog.alipay.bean.response.CommonResponse
+
+abstract class AlipayBizContent<T : CommonResponse>(val method: AlipayMethod) {
 
     override fun toString(): String {
         return this::class.java.declaredFields.map {
