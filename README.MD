@@ -5,7 +5,7 @@
 <dependency>
     <groupId>com.xulog.lib</groupId>
     <artifactId>alipay-f2f-pay</artifactId>
-    <version>0.0.2</version>
+    <version>0.1.0</version>
 </dependency>
 ```
 可能需要添加repository
