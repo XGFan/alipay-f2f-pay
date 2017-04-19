@@ -5,7 +5,7 @@
 
     <groupId>com.xulog.lib</groupId>
     <artifactId>alipay-f2f-pay</artifactId>
-    <version>0.0.2</version>
+    <version>0.1.0</version>
     <packaging>jar</packaging>
 
     <name>alipay-f2f-pay</name>
