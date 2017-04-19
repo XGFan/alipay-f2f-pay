@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import com.xulog.alipay.Util.signWithRSA2
 import com.xulog.alipay.bean.SignType
+import com.xulog.alipay.bean.callback.AsyncNotify
 import com.xulog.alipay.bean.request.AlipayBizContent
 import com.xulog.alipay.bean.response.AlipayResponse
 import com.xulog.alipay.bean.response.CommonResponse
@@ -21,6 +22,9 @@ class AlipayF2fPay(val appId: String = SandBox.APPID,
                    val privateKey: String = SandBox.PRIVATEKEY,
                    val alipayPublicKey: String = SandBox.ALIPAYPUBLICKEY,
                    val apiGateway: String = SandBox.APIGATEWAY) {
+
+
+    constructor(appId: String,privateKey: String,alipayPublicKey: String):this(appId, privateKey, alipayPublicKey, ProductApiGateway)
 
     val signType: SignType = SignType.RSA2
 
@@ -87,12 +91,21 @@ class AlipayF2fPay(val appId: String = SandBox.APPID,
     }
 
 
-    fun verifyCallbackWithRSA2(map: Map<String, String>): Boolean {
-        val sortQuery = map.filterKeys { it != "sign" && it != "sign_type" }.map { "${it.key}=${it.value}" }.sortedBy { it }.joinToString("&")
+    fun verifyCallbackWithRSA2(map: Map<String, String>): AsyncNotify {
+        val sortQuery = map.filterKeys { it != "sign" && it != "sign_type" }
+                .map { "${it.key}=${it.value}" }
+                .sortedBy { it }.joinToString("&")
         val cs = charset(charset)
-        return Util.verifyWithRSA2(sortQuery, cs, alipayPublicKey.toByteArray(cs), map["sign"]!!)
+        val status = Util.verifyWithRSA2(sortQuery, cs, alipayPublicKey.toByteArray(cs), map["sign"]!!)
+        try {
+            val notify = ObjectMapper().findAndRegisterModules().convertValue<AsyncNotify>(map, AsyncNotify::class.java)
+            notify.raw = map
+            notify.verify = status
+            return notify
+        }catch (e:Exception){
+            throw  RuntimeException()
+        }
     }
-
 
     companion object {
         const val ProductApiGateway: String = "https://openapi.alipay.com/gateway.do"
