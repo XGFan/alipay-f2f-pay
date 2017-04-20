@@ -1,20 +1,17 @@
 ## 支付宝当面付API
 
+[![Build Status](https://travis-ci.org/XGFan/alipay-f2f-pay.svg?branch=master)](https://travis-ci.org/XGFan/alipay-f2f-pay)
+![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.xulog.lib/alipay-f2f-pay/badge.svg)
+
 添加依赖
 ```xml
 <dependency>
     <groupId>com.xulog.lib</groupId>
     <artifactId>alipay-f2f-pay</artifactId>
-    <version>0.1.0</version>
+    <version>${version}</version>
 </dependency>
 ```
-可能需要添加repository
-```xml
-<repository>
-    <id>jcenter</id>
-    <url>https://jcenter.bintray.com/</url>
-</repository
-```
+
 
 
 

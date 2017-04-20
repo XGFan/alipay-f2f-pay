@@ -5,7 +5,7 @@
 
     <groupId>com.xulog.lib</groupId>
     <artifactId>alipay-f2f-pay</artifactId>
-    <version>0.1.1</version>
+    <version>0.1.2</version>
     <packaging>jar</packaging>
 
     <name>alipay-f2f-pay</name>
@@ -115,7 +115,6 @@
                 </executions>
             </plugin>
         </plugins>
-
     </build>
 
     <distributionManagement>
@@ -125,6 +124,13 @@
             <url>https://api.bintray.com/maven/xgfan/maven/alipay-f2f-pay/;publish=1</url>
         </repository>
     </distributionManagement>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jcenter</id>
+            <name>JCenter</name>
+            <url>https://jcenter.bintray.com/</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <licenses>
         <license>
