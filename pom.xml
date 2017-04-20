@@ -10,6 +10,7 @@
 
     <name>alipay-f2f-pay</name>
     <description>java lib for alipay f2f pay</description>
+    <url>http://github.com/XGFan/alipay-f2f-pay</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -116,5 +117,24 @@
         </plugins>
     </build>
 
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Guofan Xu</name>
+            <email>imxgfan@live.com</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/XGFan/alipay-f2f-pay.git</connection>
+        <developerConnection>scm:git:ssh://github.com:XGFan/alipay-f2f-pay.git</developerConnection>
+        <url>http://github.com/XGFan/alipay-f2f-pay/tree/master</url>
+    </scm>
 
 </project>
