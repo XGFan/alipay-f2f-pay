@@ -1,6 +1,6 @@
 package com.xulog.alipay.bean.request.biz
 
-import com.xulog.alipay.annotation.RequestConfig
+import com.xulog.alipay.MethodName
 import com.xulog.alipay.bean.request.AliBizContent
 import com.xulog.alipay.bean.response.biz.RefundResp
 
@@ -9,7 +9,7 @@ import com.xulog.alipay.bean.response.biz.RefundResp
  * https://docs.open.alipay.com/api_1/alipay.trade.refund
  * Created by guofan on 2017/3/30.
  */
-@RequestConfig("alipay.trade.refund")
+@MethodName("alipay.trade.refund")
 data class Refund(var out_trade_no: String? = null,
                   var trade_no: String? = null,
                   val refund_amount: String) : AliBizContent<RefundResp>() {
