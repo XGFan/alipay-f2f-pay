@@ -5,10 +5,10 @@ import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.xulog.alipay.bean.callback.AlipayNotify
 import com.xulog.alipay.bean.misc.SignType
-import com.xulog.alipay.bean.request.BizReq
 import com.xulog.alipay.bean.request.AlipayRequest
-import com.xulog.alipay.bean.response.BizRes
+import com.xulog.alipay.bean.request.BizReq
 import com.xulog.alipay.bean.response.AlipayResponse
+import com.xulog.alipay.bean.response.BizRes
 import com.xulog.alipay.bean.response.biz.*
 import com.xulog.alipay.util.MsicUtil
 import com.xulog.alipay.util.PojoUtils
@@ -129,6 +129,7 @@ class AlipayF2fPay {
 
         init {
             objectMapper = ObjectMapper()
+            objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY)
             objectMapper.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"))
         }
 

@@ -12,9 +12,6 @@
 </dependency>
 ```
 
-
-
-
 简单使用
 
 ```java
@@ -33,7 +30,6 @@ notify.isVerify()//验证回调签名
 ```
 
 
-
-![测试](https://pay.test4x.com/donate.png)
+[测试二维码](https://pay.test4x.com/donate.png)
 
 或者[点我去付款](https://pay.test4x.com/pay/10)
