@@ -1,7 +1,7 @@
 package com.xulog.alipay.bean.callback;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.xulog.alipay.Verify;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.xulog.alipay.bean.misc.Extra;
 import com.xulog.alipay.bean.misc.SignType;
 import com.xulog.alipay.bean.misc.TradeStatus;
@@ -12,7 +12,7 @@ import java.util.Date;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class AlipayNotify extends Extra implements Verify {
+public class AlipayNotify extends Extra {
     /**
      * 通知时间
      */
@@ -86,4 +86,23 @@ public class AlipayNotify extends Extra implements Verify {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date gmt_payment;
 
+    @JsonIgnore
+    private boolean verify = false;
+
+
+    public SignType getSign_type() {
+        return sign_type;
+    }
+
+    public String getSign() {
+        return sign;
+    }
+
+    public boolean isVerify() {
+        return verify;
+    }
+
+    public void setVerify(boolean verify) {
+        this.verify = verify;
+    }
 }

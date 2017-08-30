@@ -1,9 +1,8 @@
 package com.xulog.alipay.bean.response.biz;
 
-import com.smzdm.upay.sdk.common.annotation.RespKey;
 import com.xulog.alipay.bean.misc.TradeFundBill;
 import com.xulog.alipay.bean.misc.TradeStatus;
-import com.xulog.alipay.bean.response.AliBizResp;
+import com.xulog.alipay.bean.response.BizRes;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,8 +11,7 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@RespKey("alipay_trade_query_response")
-public class QueryResp extends AliBizResp {
+public class QueryResp extends BizRes {
     private String trade_no;
     private String out_trade_no;
     private String buyer_logon_id; //买家支付宝账号

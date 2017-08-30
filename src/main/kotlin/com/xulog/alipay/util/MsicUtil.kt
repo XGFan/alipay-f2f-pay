@@ -3,7 +3,6 @@ package com.xulog.alipay.util
 import com.xulog.alipay.bean.misc.SignType
 import java.math.BigDecimal
 import java.math.RoundingMode
-import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.security.*
 import java.security.spec.PKCS8EncodedKeySpec
@@ -15,7 +14,7 @@ import javax.xml.bind.DatatypeConverter
 /**
  * Created by guofan on 2017/4/4.
  */
-object Util {
+object MsicUtil {
     const val Digest_RSA: String = "RSA"
     const val Digest_MD5: String = "MD5"
     const val Digest_SHA1: String = "SHA-1"
@@ -94,19 +93,6 @@ object Util {
         return keyFactory.generatePublic(X509EncodedKeySpec(decode))
     }
 
-
-    fun <K, V> Map<K, V>.toRequestUrl(gateWay: String): String {
-        val url = if (!gateWay.endsWith("?")) {
-            gateWay + "?"
-        } else {
-            gateWay
-        }
-        return this.map {
-            "${URLEncoder.encode(it.key.toString(), "UTF-8")}=${URLEncoder.encode(it.value.toString(), "UTF-8")}"
-        }.joinToString("&", url, "")
-    }
-
-
     val Hundred: BigDecimal = BigDecimal.valueOf(100L)
 
     fun Int.toYuan(): String {
@@ -117,15 +103,14 @@ object Util {
     fun randomString(len: Int): String {
         val random = Random()
         val stringBuilder = StringBuilder()
-        (0..len - 1).forEach {
+        (0 until len).forEach {
             val i = random.nextInt(62)
-            stringBuilder.append(if (i < 10) {
-                (i + 48).toChar()
-            } else if (i in 10..35) {
-                (i + 55).toChar()
-            } else {
-                (i + 61).toChar()
-            })
+            stringBuilder.append(
+                    when {
+                        i < 10 -> (i + 48).toChar()
+                        i in 10..35 -> (i + 55).toChar()
+                        else -> (i + 61).toChar()
+                    })
         }
         return stringBuilder.toString()
     }
