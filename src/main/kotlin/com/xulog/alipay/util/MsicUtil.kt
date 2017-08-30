@@ -14,7 +14,7 @@ import javax.xml.bind.DatatypeConverter
 /**
  * Created by guofan on 2017/4/4.
  */
-object Util {
+object MsicUtil {
     const val Digest_RSA: String = "RSA"
     const val Digest_MD5: String = "MD5"
     const val Digest_SHA1: String = "SHA-1"

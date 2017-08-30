@@ -2,14 +2,14 @@ package com.xulog.alipay.bean.request
 
 import com.fasterxml.jackson.annotation.JsonValue
 import com.xulog.alipay.bean.misc.Extra
-import com.xulog.alipay.bean.response.AliBizResp
+import com.xulog.alipay.bean.response.BizRes
 import com.xulog.alipay.util.PojoUtils
 import java.util.stream.Collectors
 
 /**
  * 本质上没有什么卵用，主要是为了一个泛型来表示返回值
  */
-abstract class AliBizContent<T : AliBizResp> : Extra() {
+abstract class BizReq<T : BizRes> : Extra() {
 
     /**
      * 本质上就是转成json

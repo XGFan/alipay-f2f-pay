@@ -12,7 +12,7 @@ import java.io.IOException;
  * Created by guofan on 2017/3/31.
  */
 @Data
-public class AlipayResponse<T extends AliBizResp> {
+public class AlipayResponse<T extends BizRes> {
     private String sign = "";
     private T biz_content;
 
@@ -23,7 +23,7 @@ public class AlipayResponse<T extends AliBizResp> {
         try {
             ObjectMapper objectMapper = AlipayF2fPay.Companion.getObjectMapper();
             writeValueAsString = objectMapper.writeValueAsString(value);
-            Class clazz = AlipayF2fPay.Companion.getRESPCLASSES().getOrDefault(name, AliBizResp.class);
+            Class clazz = AlipayF2fPay.Companion.getRESPCLASSES().getOrDefault(name, BizRes.class);
             this.biz_content = objectMapper.readValue(writeValueAsString, (Class<T>) clazz);
         } catch (IOException e) {
             e.printStackTrace();

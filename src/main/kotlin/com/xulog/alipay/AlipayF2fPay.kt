@@ -4,11 +4,14 @@ import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.xulog.alipay.bean.callback.AlipayNotify
-import com.xulog.alipay.bean.request.AliBizContent
+import com.xulog.alipay.bean.misc.SignType
+import com.xulog.alipay.bean.request.BizReq
 import com.xulog.alipay.bean.request.AlipayRequest
-import com.xulog.alipay.bean.response.AliBizResp
+import com.xulog.alipay.bean.response.BizRes
 import com.xulog.alipay.bean.response.AlipayResponse
 import com.xulog.alipay.bean.response.biz.*
+import com.xulog.alipay.util.MsicUtil
+import com.xulog.alipay.util.PojoUtils
 import net.dongliu.requests.RawResponse
 import net.dongliu.requests.Requests
 import java.io.IOException
@@ -35,11 +38,16 @@ class AlipayF2fPay {
         this.config = config
     }
 
+    constructor(appId: String, signType: SignType, privateKey: String, publicKey: String, notifyUrl: String) :
+            this(AliConfig(appId, signType, privateKey, publicKey, notifyUrl))
+
+    constructor(notifyUrl: String) : this(SandBox.initNotifyUrl(notifyUrl))
+
     /**
      * 发起请求
      */
     @Throws(SDKException::class)
-    fun <T : AliBizResp> execute(bizContent: AliBizContent<T>): AlipayResponse<T> {
+    fun <T : BizRes> execute(bizContent: BizReq<T>): AlipayResponse<T> {
         //组装
         val request = AlipayRequest(config, bizContent)
         //签名
@@ -77,11 +85,23 @@ class AlipayF2fPay {
      * 回调
      */
     fun callBack(map: Map<String, Any>): AlipayNotify {
+        val alipayNotify: AlipayNotify
         try {
-            return objectMapper.convertValue<AlipayNotify>(map, AlipayNotify::class.java)
+            alipayNotify = objectMapper.convertValue<AlipayNotify>(map, AlipayNotify::class.java)
         } catch (e: IOException) {
             throw SDKException(SDKException.REASON.DESERIALIZATION_EXCEPTION, e)
         }
+
+        val verify: Boolean
+        try {
+            val sortQuery = PojoUtils.transToSortedQueryStr(alipayNotify, "sign", "sign_type")
+            verify = MsicUtil.verify(sortQuery, config.publicKey, alipayNotify.sign, alipayNotify.sign_type)
+        } catch (e: Exception) {
+            throw SDKException(SDKException.REASON.SIGN_EXCEPTION, e)
+        }
+
+        alipayNotify.isVerify = verify
+        return alipayNotify
     }
 
     /**

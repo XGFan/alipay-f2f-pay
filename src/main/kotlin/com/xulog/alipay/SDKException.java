@@ -30,10 +30,25 @@ public class SDKException extends Exception {
 
 
     public static enum REASON {
+        /**
+         * 签名或者验签错误
+         */
         SIGN_EXCEPTION,
+        /**
+         * 序列化错误
+         */
         SERIALIZATION_EXCEPTION,
+        /**
+         * 网络错误
+         */
         NETWORK_EXCEPTION,
+        /**
+         * 反序列化错误
+         */
         DESERIALIZATION_EXCEPTION,
+        /**
+         * 未知错误
+         */
         UNKNOWN
     }
 }

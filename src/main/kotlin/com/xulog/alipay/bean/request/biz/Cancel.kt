@@ -1,7 +1,7 @@
 package com.xulog.alipay.bean.request.biz
 
 import com.xulog.alipay.MethodName
-import com.xulog.alipay.bean.request.AliBizContent
+import com.xulog.alipay.bean.request.BizReq
 import com.xulog.alipay.bean.response.biz.CancelResp
 
 /**
@@ -9,7 +9,7 @@ import com.xulog.alipay.bean.response.biz.CancelResp
  * https://docs.open.alipay.com/api_1/alipay.trade.cancel
  */
 @MethodName("alipay.trade.cancel")
-data class Cancel(var out_trade_no: String? = null, var trade_no: String? = null) : AliBizContent<CancelResp>() {
+data class Cancel(var out_trade_no: String? = null, var trade_no: String? = null) : BizReq<CancelResp>() {
 
     companion object {
         fun ofOutTradeNo(id: String): Cancel {

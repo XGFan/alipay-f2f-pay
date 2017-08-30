@@ -1,7 +1,7 @@
 package com.xulog.alipay.bean.request.biz
 
 import com.xulog.alipay.MethodName
-import com.xulog.alipay.bean.request.AliBizContent
+import com.xulog.alipay.bean.request.BizReq
 import com.xulog.alipay.bean.response.biz.QueryResp
 
 /**
@@ -11,7 +11,7 @@ import com.xulog.alipay.bean.response.biz.QueryResp
 @MethodName("alipay.trade.query")
 data class Query(var out_trade_no: String? = null,
                  var trade_no: String? = null)
-    : AliBizContent<QueryResp>() {
+    : BizReq<QueryResp>() {
 
 
     companion object {

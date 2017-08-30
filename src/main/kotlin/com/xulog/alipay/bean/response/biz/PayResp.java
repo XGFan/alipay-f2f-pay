@@ -1,6 +1,6 @@
 package com.xulog.alipay.bean.response.biz;
 
-import com.xulog.alipay.bean.response.AliBizResp;
+import com.xulog.alipay.bean.response.BizRes;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class PayResp extends AliBizResp {
+public class PayResp extends BizRes {
     private String trade_no;
     private String out_trade_no;
     private String buyer_logon_id;

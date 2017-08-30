@@ -4,7 +4,7 @@ import com.xulog.alipay.bean.misc.Extra;
 
 import java.security.InvalidParameterException;
 
-public class AliBizResp extends Extra {
+public class BizRes extends Extra {
     /**
      * 网关返回码
      */
