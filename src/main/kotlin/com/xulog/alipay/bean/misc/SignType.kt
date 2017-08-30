@@ -1,4 +1,4 @@
-package com.xulog.alipay.bean
+package com.xulog.alipay.bean.misc
 
 enum class SignType {
     RSA,
