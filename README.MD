@@ -1,7 +1,7 @@
 ## 支付宝当面付API
 
 [![Build Status](https://travis-ci.org/XGFan/alipay-f2f-pay.svg?branch=master)](https://travis-ci.org/XGFan/alipay-f2f-pay)
-![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.xulog.lib/alipay-f2f-pay/badge.svg)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.xulog.lib/alipay-f2f-pay/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.xulog.lib/alipay-f2f-pay)
 
 添加依赖
 ```xml
@@ -30,6 +30,8 @@ notify.isVerify()//验证回调签名
 ```
 
 
-[测试二维码](https://pay.test4x.com/donate.png)
+[测试二维码(可刷新查看变化)](https://pay.xulog.com/qr/10)
 
-或者[点我去付款](https://pay.test4x.com/pay/10)
+或者[点我去付款](https://pay.xulog.com/pay/10)
+
+[Demo Repo](https://github.com/XGFan/alipay-f2f-pay-example)
